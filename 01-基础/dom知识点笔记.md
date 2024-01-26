@@ -139,8 +139,6 @@
 
 - nodeType 该节点的类型，只读
 
-- attributes Element节点的属性集合
-
 - ```html
   <html>
       <body>
@@ -164,14 +162,70 @@
   			// 注释节点.nodeType   8
   			// document.nodeType  9
   			// DocumentFragment.nodeType   11
+              
+              function resElementChild(div) {
+                  // no Children 不使用Children拿到所有子元素节点
+                  //let arr = []
+                  //模拟系统类数组
+                  let temp = {
+                      length: 0,
+                      push: Array.prototype.push,
+                      splice: Array.prototype.aplice
+                  }
+                  for(var i = 0; i < div.childNodes.length; i++) {
+                      if(div.childNodes[i].nodeType === 1) {
+                          //arr.push(div.childNodes[i])
+                          temp.push(div.childNodes[i])
+                      }
+                  }
+                  //return arr
+                  return temp
+              }
           </script>
       </body>
   </html>
   
   ```
 
+- attributes Element节点的属性集合
+
+- ```js
+  //属性节点
+  // <div id="demo" class="box" />
+  div.attributes
+  // 打印 NameNodeMap {0: id, 1: class, length: 2}
+  div.attributes[0].nodeType  // 2  属性节点
+  div.attributes[0].value  // "demo"
+  div.attributes[0].name  // "id"
+  div.attributes[0].value = 'abc'  // 'abc'  可以被赋值，但是name不能被赋值
+  ```
+
+#### 节点的一个方法
+
+- Node.hasChildNodes();  是否有子节点 true / false
+
+- ```html
+  <div>
+      <span></span>
+  </div>
+  // div.hasChildNodes() true  文本节点 + 元素节点
+  <div>
+  	
+  </div>
+  // div.hasChildNodes() true  文本节点
+  <div></div>
+  // div.hasChildNodes() false
+  ```
+
+### DOM结构树
+
+- 
+
+- ```js
+  //继承关系 document → HTMLDocument → Document
+  function HTMLDocument() {
+      __proto__ = Document.prototype
+  }
+  ```
+
   
-
-节点的一个方法
-
-- Node.hasChildNodes()
