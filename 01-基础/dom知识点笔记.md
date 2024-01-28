@@ -405,7 +405,7 @@
           div.innerHTML = '<span>123</span>'
         </script>
       </body>
-    
+      
     //追加操作 +=
     <body>
         <div>123</div>
@@ -437,5 +437,60 @@
     //'demo'
     ```
 
+  - 练习
+  - ```js
+    //可以通过这些进行改变class和id
+    div.className = '123'
+    div.id = '123'
+    
+    //例题1.练习用js生成如下DOM结构，使用标准DOM方法和属性
+    //<div class="example">
+    //   <p class="slogan">123</p>
+    //</div>
+    
+    //1.
+    var div = document.createElement('div');
+    var p = document.createElement('p');
+    div.setAttribute('class','example')
+    p.setAttribute('class','slogan')
+    p.innerText = '123'
+    div.appendChild(p)
+    document.body.appendChild(div)
+    
+    //2.
+    var div = document.createElement('div');
+    div.setAttribute('class','example')
+    div.innerHTML = '<p class="slogan">123</p>'
+    document.body.appendChild(div)
+    
+    
+    //例题2.参考insetBefore()实现insertAfter()
+    var div = document.createElement('div');
+    var span = document.createElement('span');
+    var strong = document.createElement('strong');
+    var p = document.createElement('p');
+    div.appendChild(span);
+    div.appendChild(strong);
+    document.body.appendChild(div)
+    //方法实现
+    Element.prototype.insertAfter = function (newe,elem) {
+        if(elem.nextElementSibling) {
+            this.insertBefore(newe,elem.nextElementSibling)
+        }else {
+            this.appendChild(newe)
+        }
+        return newe       
+    };
+    //实现
+    div.insertAfter(p,span)
+    
+    //例题3.节点倒叙<div><span></span><i></i><strong></strong></div>
+    var div = document.getElementsByTagName("div")[0];
+    for (var i = div.children.length - 1; i >= 0 ; i--) {
+        div.appendChild(div.children[i]);
+    }
+    
+    ```
+    
     
 

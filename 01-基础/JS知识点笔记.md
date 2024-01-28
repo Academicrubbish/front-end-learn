@@ -1608,4 +1608,88 @@ obj['wife1']['name'] //'xiaoliu'
   //d
   ```
 
-  
+
+### 日期对象
+
+```js
+//日期对象，系统提供好的
+//date 保存的时间是 new 出来那一刻的，不是实时的
+var date = new Date();
+//'Sun Jan 28 2024 19:12:25 GMT+0800 (中国标准时间)'
+date.getDate(); //这个月第几天 (1-31)
+date.getDay(); //这周第几天 (0-6) 且周日是第一天
+date.getMonth(); //今年第几月 (0-11)
+date.getFullYear(); // 2024 , 正常输出
+date.getYear(); //124 , 历史遗留问题 之前是6位制 99.01.28 1999年1月28日 21世纪向前进一位, 100 就指代2000年
+date.getHours(); //小时 (0-23)
+date.getMinutes(); //分钟 (0-59) 
+date.getSeconds(); //秒 (0-59)
+date.getMilliseconds(); //毫秒 (0-999)
+date.getTime(); //返回1970年1月1日至今的毫秒数
+
+//eg.验证程序执行效率问题
+var start = new Date().getTime();
+for (var i = 0; i < 100000000; i++) {}
+var end = new Date().getTime();
+console.log("Time taken: " + (end - start) + "ms");
+// 1亿次 68ms
+
+//set方法，可以设置时间点
+//set
+//计时器
+var date = new Date();
+date.setMinutes(39); //设置时间，分钟
+setInterval(function () {
+    if (new Date().getTime() - date.getTime() > 1000) {
+        console.log("123");
+    }
+},1000);
+
+
+date.toTimeString();
+//'22:48:19 GMT+0800 (中国标准时间)'
+
+```
+
+### 计时器
+
+- setInterval();
+- setTimeout();
+- clearInterval();  //清除计时器
+- clearTimeout();
+
+```js
+//计时器
+var time = 1000;
+var i = 0;
+setInterval(function () {
+    i++;
+    console.log(i);
+}, time);
+
+//测试误差
+var firstTime = new Date().getTime();
+setInterval(function () {
+    var lastTime = new Date().getTime();
+    console.log(lastTime - firstTime);
+    firstTime = lastTime;
+}, 1000)
+//1010
+//1004
+//993
+//1006
+//1002
+//991
+//1009
+//991
+
+//清除计时器
+var i = 0;
+var timer = setInterval(function () {
+    console.log(i++);
+    if(i > 10) {
+        clearInterval(timer);
+    }
+},10)
+```
+
