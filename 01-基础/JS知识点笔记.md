@@ -1653,21 +1653,22 @@ date.toTimeString();
 
 ### 计时器
 
-- setInterval();
-- setTimeout();
+- setInterval();  //按时循环
+- setTimeout();  //定时执行一次
 - clearInterval();  //清除计时器
-- clearTimeout();
+- clearTimeout();  //清除计时器
+- 内部function this指向window
 
 ```js
-//计时器
-var time = 1000;
+//计时器，每隔1000ms执行一次function()
+var time = 1000; //设置time，计时器运行之后，不会被修改
 var i = 0;
 setInterval(function () {
     i++;
     console.log(i);
 }, time);
 
-//测试误差
+//测试误差，计时器是不准的
 var firstTime = new Date().getTime();
 setInterval(function () {
     var lastTime = new Date().getTime();
@@ -1691,5 +1692,65 @@ var timer = setInterval(function () {
         clearInterval(timer);
     }
 },10)
+
+//返回值
+var timer1 = setInterval(function() {}, 1000); //timer1 为 1
+var timer2 = setInterval(function() {}, 1000); //timer2 为 2
+clearInterval(1) //可以清除掉timer1计时器
+clearInterval(2) //可以清除掉timer2计时器
+
+//其他形式
+setInterval("console.log('a')", 1000); //也可以正常执行
+```
+
+```html
+// 1. 例题：写一个定时器，3分钟停止
+<body>
+  分钟：<input type="text" value="0">
+  秒钟：<input type="text" value="0">
+  <script type="text/javascript">
+    var minuteNode = document.getElementsByTagName("input")[0];
+    var secondNode = document.getElementsByTagName("input")[1];
+    var minute = 0; var second = 0;
+    setInterval(function () {
+      second++
+      if (second == 60) {
+        second = 0;
+        minute++
+
+      }
+      minuteNode.value = minute;
+      secondNode.value = second;
+      if (minute == 3) {
+        clearInterval(1)
+      }
+    }, 1000)
+  </script>
+</body>
+```
+
+
+
+### ES6构造函数
+
+```js
+//ES5
+function Person(name,age) {
+    this.name = name;
+    this.age = age;
+    this.getPerson = function () {
+        console.log('我叫' + this.name + '，今年' + this.age + '岁')
+    }
+}
+//ES6
+class Person {
+    constructor(name,age) {
+        this.name = name;
+        this.age = age;
+    }
+    getPerson() {
+         console.log('我叫' + this.name + '，今年' + this.age + '岁')
+    }
+}
 ```
 
