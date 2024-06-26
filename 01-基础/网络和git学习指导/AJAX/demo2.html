@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // fetch 返回的是一个Promise，当受到服务器的响应头之后，Promise完成
+    // 完成之后，会给予一个响应对象
+    // fetch('http://study.duyiedu.com/api/herolist').then(res => {
+    //   console.log('已全部接收到服务器响应头',res);
+    // })
+
+    // fetch('http://study.duyiedu.com/api/herolist')
+    // .then(res => {
+    //   return res.json();
+    // }).then(res => {
+    //   console.log(res);
+    // })
+
+    async function getHeros() {
+      const res = await fetch('http://study.duyiedu.com/api/herolist')
+      return await res.json();
+    }
+
+    getHeros().then(res => {
+      console.log(res);
+    })
+  </script>
+</body>
+</html>
